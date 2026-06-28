@@ -1,0 +1,11 @@
+rank,strategy_version,segment,symbol,exchange,contract_type,timeframe,status,net_sharpe,deflated_sharpe,pbo,net_cagr_or_return,max_drawdown,profit_factor,trades,oos_result,walk_forward_result,reason
+1,BASE_BUY_HOLD,benchmark,BTCUSDT,Binance,USDT-M perpetual,1m->D,not_run,,,,,,,,,"Missing P0 klines/funding"
+2,BASE_SIMPLE_MOMENTUM,benchmark,BTCUSDT,Binance,USDT-M perpetual,15m/1h/4h,not_run,,,,,,,,,"Missing P0 klines/funding"
+3,BASE_SIMPLE_MEAN_REVERSION,benchmark,BTCUSDT,Binance,USDT-M perpetual,5m/15m/1h,not_run,,,,,,,,,"Missing P0 klines/funding"
+4,BASE_FUNDING_REVERSAL,benchmark,BTCUSDT,Binance,USDT-M perpetual,8h/D,not_run,,,,,,,,,"Missing funding history"
+5,BASE_OI_SINGLE_FACTOR,benchmark,BTCUSDT,third_party,perpetual,15m/1h/4h,blocked,,,,,,,,,"Multi-year OI absent"
+6,BASE_BREAKOUT,benchmark,BTCUSDT,Binance,USDT-M perpetual,15m/1h/4h,not_run,,,,,,,,,"Missing P0 klines/funding"
+7,BASE_2B_SWEEP,benchmark,BTCUSDT,Binance,USDT-M perpetual,5m/15m/1h,not_run,,,,,,,,,"Missing P0 klines/funding"
+8,SCALP_ORDERFLOW_CVD,ultra_short,BTCUSDT,Binance,USDT-M perpetual,1m/3m/5m,blocked,,,,,,,,,"aggTrades/trades absent"
+9,INTRADAY_REGIME_BREAKOUT_PULLBACK,intraday,BTCUSDT,Binance,USDT-M perpetual,15m/30m/1h,not_run,,,,,,,,,"Missing P0 klines/funding"
+10,SWING_VOL_ADJUSTED_TREND,short_swing,BTCUSDT,Binance,USDT-M perpetual,4h/8h/D,not_run,,,,,,,,,"Missing P0 klines/funding"
