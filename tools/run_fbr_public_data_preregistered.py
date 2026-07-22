@@ -198,7 +198,25 @@ def _build_mark_supplements_from_daily(missing: Iterable[int]) -> dict:
         for ts in missing
     })
     for day in days:
-        local, receipt = _download_ohlc_archive("markPriceKlines", "daily", day)
+        try:
+            local, receipt = _download_ohlc_archive("markPriceKlines", "daily", day)
+        except Exception as exc:
+            # Some monthly archive gaps have no corresponding daily archive
+            # (notably 2026-06-29/30). Preserve the unresolved timestamps and
+            # allow the local Drive-sourced official-API supplement to fill them
+            # before the hard research data audit.
+            url, name = builder.archive_url("markPriceKlines", "daily", day)
+            receipts.append({
+                "dataset": "markPriceKlines",
+                "cadence": "daily",
+                "period": day.strftime("%Y-%m-%d"),
+                "url": url,
+                "local_name": f"raw_cache/markPriceKlines/daily/{name}",
+                "status": "archive_unavailable",
+                "error": f"{type(exc).__name__}: {exc}",
+                "rows": 0,
+            })
+            continue
         for raw in builder.iter_zip_rows(local):
             if len(raw) < 12:
                 continue
@@ -213,7 +231,9 @@ def _build_mark_supplements_from_daily(missing: Iterable[int]) -> dict:
             if receipt.first_ts_ms is None:
                 receipt.first_ts_ms = ts
             receipt.last_ts_ms = ts
-        receipts.append(asdict(receipt))
+        rec = asdict(receipt)
+        rec["status"] = "checksum_verified"
+        receipts.append(rec)
 
     unresolved = [ts for ts in missing if ts not in found]
     with gzip.open(out, "wt", encoding="utf-8", newline="", compresslevel=6) as gz:
