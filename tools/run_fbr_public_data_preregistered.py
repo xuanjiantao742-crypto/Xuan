@@ -2,9 +2,10 @@
 """Apply the locked FBR research window using checksum-verified Binance Vision data.
 
 The research window starts at 2019-10-01 UTC and ends immediately before
-2026-07-21 UTC. All price and funding inputs are obtained from Binance's public
-archive only. Every ZIP is checked against its adjacent official .CHECKSUM.
-No account, key, balance, order, or live-trading endpoint is used.
+2026-07-21 UTC. All price and funding inputs are obtained from Binance public market-data
+sources. Archive ZIPs are checked against adjacent official .CHECKSUM files;
+any pre-archive API responses are content-hashed. No account, key, balance,
+order, or live-trading endpoint is used.
 """
 from __future__ import annotations
 
@@ -12,6 +13,8 @@ import csv
 import datetime as dt
 import gzip
 import hashlib
+import json
+import urllib.parse
 from dataclasses import asdict
 from typing import Iterable, Iterator
 
@@ -64,48 +67,107 @@ def _download_ohlc_archive(dataset: str, cadence: str, when: dt.datetime):
     return local, receipt
 
 
-def _daily_prefix_rows(dataset: str):
-    """Load 2019-10..2019-12 from official daily archives with checksums."""
-    rows: list[list[str]] = []
-    receipts = []
-    for day in _days(LOCKED_START, ARCHIVE_MONTHLY_START):
-        local, receipt = _download_ohlc_archive(dataset, "daily", day)
-        day_start = int(day.timestamp() * 1000)
-        day_end = day_start + 86_400_000
-        for raw in builder.iter_zip_rows(local):
-            if len(raw) < 12:
-                raise ValueError(f"short row in {local}: {raw}")
-            ts = builder.normalize_ts(raw[0])
-            if not (day_start <= ts < day_end):
-                continue
-            row = list(raw[:12])
-            row[0] = str(ts)
-            row[6] = str(builder.normalize_ts(row[6]))
-            receipt.rows += 1
-            if receipt.first_ts_ms is None:
-                receipt.first_ts_ms = ts
-            receipt.last_ts_ms = ts
-            rows.append(row)
-        receipts.append(receipt)
-        print(f"{dataset} {receipt.period}: {receipt.rows:,} rows", flush=True)
+def _rest_prefix_rows(dataset: str):
+    """Load 2019-10..2019-12 from an official Binance public API URL.
 
-    rows.sort(key=lambda r: int(r[0]))
+    Binance Vision does not contain BTCUSDT USD-M 1m files before 2020-01.
+    Binance's official connector documents alternative production URLs, so the
+    first page probes only official binance.com hosts and then pins one host for
+    the complete prefix. Every raw response is hashed in the receipt list.
+    """
+    endpoint = "/fapi/v1/klines" if dataset == "klines" else "/fapi/v1/markPriceKlines"
+    hosts = [
+        "https://fapi1.binance.com", "https://fapi2.binance.com",
+        "https://fapi3.binance.com", "https://fapi4.binance.com",
+        "https://www.binance.com", "https://api.binance.com",
+        "https://fapi.binance.com",
+    ]
+    cur = int(LOCKED_START.timestamp() * 1000)
+    end_exclusive = int(ARCHIVE_MONTHLY_START.timestamp() * 1000)
+    rows: list[list[str]] = []
+    receipts: list[dict] = []
+    chosen_host = None
+    errors = []
+
+    def fetch(host: str, start_ms: int):
+        params = {
+            "symbol": builder.SYMBOL,
+            "interval": builder.INTERVAL,
+            "startTime": start_ms,
+            "endTime": end_exclusive - 1,
+            "limit": 1500,
+        }
+        url = f"{host}{endpoint}?{urllib.parse.urlencode(params)}"
+        raw = builder.request_bytes(url, attempts=1, timeout=45)
+        return json.loads(raw), {
+            "url": url,
+            "response_sha256": hashlib.sha256(raw).hexdigest(),
+            "response_bytes": len(raw),
+        }
+
+    for host in hosts:
+        try:
+            payload, receipt = fetch(host, cur)
+            if isinstance(payload, list) and payload:
+                chosen_host = host
+                receipts.append(receipt)
+                break
+            errors.append(f"{host}: empty/unexpected payload")
+        except Exception as exc:
+            errors.append(f"{host}: {type(exc).__name__}: {exc}")
+    if chosen_host is None:
+        raise RuntimeError("all official Binance public API hosts failed for 2019 prefix: " + " | ".join(errors))
+
+    first_page = True
+    while cur < end_exclusive:
+        if first_page:
+            payload = payload
+            first_page = False
+        else:
+            payload, receipt = fetch(chosen_host, cur)
+            receipts.append(receipt)
+        if not isinstance(payload, list):
+            raise ValueError(f"unexpected {dataset} prefix payload: {payload!r}")
+        if not payload:
+            break
+        advanced = cur
+        for raw_row in payload:
+            ts = builder.normalize_ts(str(raw_row[0]))
+            if cur <= ts < end_exclusive:
+                row = [str(ts)] + [str(x) for x in raw_row[1:12]]
+                row[6] = str(builder.normalize_ts(row[6]))
+                rows.append(row)
+                advanced = max(advanced, ts + 60_000)
+        if advanced <= cur:
+            raise RuntimeError(f"{dataset} prefix pagination did not advance from {cur}")
+        cur = advanced
+        if len(payload) < 1500:
+            break
+
+    expected_first = int(LOCKED_START.timestamp() * 1000)
+    expected_last = end_exclusive - 60_000
+    if not rows or int(rows[0][0]) != expected_first or int(rows[-1][0]) != expected_last:
+        raise ValueError(
+            f"incomplete {dataset} official-API prefix: rows={len(rows)}, "
+            f"first={rows[0][0] if rows else None}, last={rows[-1][0] if rows else None}"
+        )
     for a, b in zip(rows, rows[1:]):
-        if int(b[0]) <= int(a[0]):
-            raise ValueError(f"duplicate/out-of-order {dataset} prefix at {a[0]} -> {b[0]}")
-    return rows, receipts
+        if int(b[0]) != int(a[0]) + 60_000:
+            raise ValueError(f"gap/duplicate in {dataset} prefix at {a[0]} -> {b[0]}")
+    return rows, receipts, chosen_host
 
 
 def _build_series_with_prefix_and_header(dataset: str, output_name: str):
     # The base builder uses monthly archives for completed months and daily archives
-    # for the current partial month. Restrict it to 2020+, then prepend 2019 daily files.
+    # for the current partial month. Restrict it to 2020+, then prepend the 2019 official-API prefix.
+    # Probe and materialize the unavailable-in-Vision 2019 prefix first, so a
+    # regional API block fails before the larger 2020+ archive download.
+    prefix, prefix_api_receipts, prefix_host = _rest_prefix_rows(dataset)
     builder.START = ARCHIVE_MONTHLY_START
     try:
         receipts, audit = _original_build_series(dataset, output_name)
     finally:
         builder.START = LOCKED_START
-
-    prefix, prefix_receipts = _daily_prefix_rows(dataset)
     path = builder.ROOT / audit["normalized_path"]
     tmp = path.with_suffix(path.suffix + ".prefixfix")
     stream_hash = hashlib.sha256()
@@ -154,11 +216,13 @@ def _build_series_with_prefix_and_header(dataset: str, output_name: str):
         "normalized_bytes": path.stat().st_size,
         "canonical_row_stream_sha256": stream_hash.hexdigest(),
         "header_added_by_preregistered_wrapper": True,
-        "daily_archive_prefix_start_utc": LOCKED_START.isoformat(),
-        "daily_archive_prefix_end_exclusive_utc": ARCHIVE_MONTHLY_START.isoformat(),
-        "daily_archive_prefix_rows": len(prefix),
+        "official_api_prefix_start_utc": LOCKED_START.isoformat(),
+        "official_api_prefix_end_exclusive_utc": ARCHIVE_MONTHLY_START.isoformat(),
+        "official_api_prefix_rows": len(prefix),
+        "official_api_prefix_host": prefix_host,
+        "official_api_prefix_response_receipts": prefix_api_receipts,
     })
-    return prefix_receipts + receipts, audit
+    return receipts, audit
 
 
 def _funding_archive_url(cadence: str, when: dt.datetime) -> tuple[str, str]:
