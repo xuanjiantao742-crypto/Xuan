@@ -235,7 +235,20 @@ def _build_mark_supplements_from_daily(missing: Iterable[int]) -> dict:
     }
 
 
+def _run_and_rewrite_hashes() -> int:
+    rc = builder.main()
+    # build.log is an execution diagnostic written by tee while this process runs;
+    # exclude it so data hashes cannot race with the final stdout flush.
+    sums = []
+    for path in sorted(builder.ROOT.rglob("*")):
+        if not path.is_file() or "raw_cache" in path.parts or path.name in {"SHA256SUMS", "build.log"}:
+            continue
+        sums.append(f"{builder.sha256_file(path)}  {path.relative_to(builder.ROOT).as_posix()}")
+    (builder.ROOT / "SHA256SUMS").write_text("\n".join(sums) + "\n", encoding="utf-8")
+    return rc
+
+
 builder.build_series = _build_series_with_header
 builder.build_funding = _build_funding_from_archives
 builder.build_mark_supplements = _build_mark_supplements_from_daily
-raise SystemExit(builder.main())
+raise SystemExit(_run_and_rewrite_hashes())
