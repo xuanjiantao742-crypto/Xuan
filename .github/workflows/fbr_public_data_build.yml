@@ -4,8 +4,9 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - '.github/workflows/fbr_public_data_build.yml'
       - 'tools/build_fbr_public_data.py'
+  schedule:
+    - cron: '*/5 * * * *'
 
 permissions:
   contents: read
@@ -16,6 +17,8 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: agent/fbr-public-data-20260722
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
