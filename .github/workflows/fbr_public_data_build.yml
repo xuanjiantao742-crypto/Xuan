@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'tools/build_fbr_public_data.py'
+      - 'tools/run_fbr_public_data_preregistered.py'
   schedule:
     - cron: '*/5 * * * *'
 
@@ -25,7 +26,7 @@ jobs:
       - name: Build checksum-verified research snapshot
         env:
           FBR_OUTPUT_DIR: fbr_public_data_output
-        run: python tools/build_fbr_public_data.py
+        run: python tools/run_fbr_public_data_preregistered.py
       - name: Validate artifact manifest
         run: |
           test -s fbr_public_data_output/audit/data_manifest.json
