@@ -1,12 +1,12 @@
 name: FBR Public Data Build
 
+# Isolated research artifact build; no accounts, keys, orders, or forward data.
 on:
   pull_request:
     branches: [main]
     paths:
       - '.github/workflows/fbr_public_data_build.yml'
       - 'tools/build_fbr_public_data.py'
-  workflow_dispatch:
 
 permissions:
   contents: read
