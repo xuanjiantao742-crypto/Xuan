@@ -24,10 +24,27 @@ jobs:
         with:
           python-version: '3.12'
       - name: Build checksum-verified research snapshot
+        id: build
+        shell: bash
         env:
           FBR_OUTPUT_DIR: fbr_public_data_output
-        run: python tools/run_fbr_public_data_preregistered.py
+        run: |
+          set +e
+          python tools/run_fbr_public_data_preregistered.py > build.log 2>&1
+          status=$?
+          cat build.log
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          exit "$status"
+      - name: Upload build diagnostic log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fbr-public-data-build-log
+          path: build.log
+          if-no-files-found: error
+          retention-days: 7
       - name: Validate artifact manifest
+        if: success()
         run: |
           test -s fbr_public_data_output/audit/data_manifest.json
           test -s fbr_public_data_output/normalized/btcusdt_trade_1m_research.csv.gz
@@ -35,6 +52,7 @@ jobs:
           test -s fbr_public_data_output/normalized/btcusdt_funding_research.csv.gz
           (cd fbr_public_data_output && sha256sum -c SHA256SUMS)
       - name: Upload immutable research snapshot
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: fbr-btcusdt-public-data-through-2026-07-20
