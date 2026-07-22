@@ -6,8 +6,7 @@ on:
     paths:
       - 'tools/build_fbr_public_data.py'
       - 'tools/run_fbr_public_data_preregistered.py'
-  schedule:
-    - cron: '*/5 * * * *'
+  workflow_dispatch:
 
 permissions:
   contents: read
