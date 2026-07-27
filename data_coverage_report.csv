@@ -1,0 +1,13 @@
+dataset,exchange,symbol,contract_type,timeframe_or_granularity,local_path_or_env,status,start_time_utc,end_time_utc,rows,missing_intervals,duplicates,checksum_verified,notes
+klines_um_1m,Binance,BTCUSDT,USDT-M perpetual,1m,not_found,missing,,,,,,false,"P0 required; no local data directory found"
+funding_rate,Binance,BTCUSDT,USDT-M perpetual,8h events,not_found,missing,,,,,,false,"P0 required for net PnL; no local file or API key found"
+mark_price_premium,Binance,BTCUSDT,USDT-M perpetual,1m/event,not_found,missing,,,,,,false,"Strongly recommended; basis/premium module disabled"
+aggTrades_um,Binance,BTCUSDT,USDT-M perpetual,event,not_found,missing,,,,,,false,"Needed for true CVD/order-flow scalping; absent"
+spot_klines_1m,Binance,BTCUSDT,spot,1m,not_found,missing,,,,,,false,"Needed for spot-perp divergence; absent"
+coinm_klines_1m,Binance,BTCUSD,COIN-M futures/perpetual,1m,not_found,missing,,,,,,false,"Needed for USD-margined vs coin-margined comparison; absent"
+open_interest_history,third_party,BTCUSDT,perpetual,5m-1d,not_found,missing,,,,,,false,"Multi-year OI requires paid/third-party data; Binance official history too short"
+long_short_ratio,third_party,BTCUSDT,perpetual,5m-1d,not_found,missing,,,,,,false,"Multi-year account/top-trader ratios require paid/third-party data"
+taker_buy_sell_stats,Binance/third_party,BTCUSDT,perpetual,5m-1d,not_found,missing,,,,,,false,"Binance stats history too short; kline taker fields available only after P0 klines"
+liquidation_history,third_party,BTCUSDT,perpetual,event,not_found,missing,,,,,,false,"Historical liquidation event data absent"
+historical_order_book,third_party,BTCUSDT,perpetual,L2/L3,not_found,missing,,,,,,false,"Historical depth absent; cannot backtest book-based logic"
+liquidation_heatmap_snapshots,third_party,BTCUSDT,perpetual,point-in-time snapshots,not_found,missing,,,,,,false,"No point-in-time snapshots; not allowed in historical backtest"

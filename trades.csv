@@ -1,0 +1,1 @@
+entry_time_UTC,exit_time_UTC,symbol,exchange,contract_type,timeframe,strategy_version,direction,entry_price,exit_price,position_size,gross_pnl,fee,slippage,funding_cost,net_pnl,gross_return,net_return,signal_reason,market_regime,holding_period
