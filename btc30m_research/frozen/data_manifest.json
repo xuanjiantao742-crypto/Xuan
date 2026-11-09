@@ -1,0 +1,174 @@
+{
+ "description": "Public data needed by frozen/generate_signals.py. All URLs are public, free, need no key.",
+ "warmup_days": 63,
+ "warmup_note": "fetch_data.py downloads [floor_to_day(--start) - warmup_days, --end); generate_signals.py builds its minute grid from the same point, so every rolling window is complete.",
+ "layers": "monthly zip -> daily zip -> REST with endTime (<=1500 rows/request); rows >= --end are never written",
+ "sources": [
+  {
+   "name": "index_1m",
+   "kind": "kline",
+   "earliest": "2020-01-01T00:00:00Z",
+   "monthly_url": "https://data.binance.vision/data/futures/um/monthly/indexPriceKlines/BTCUSDT/1m/BTCUSDT-1m-{ym}.zip",
+   "daily_url": "https://data.binance.vision/data/futures/um/daily/indexPriceKlines/BTCUSDT/1m/BTCUSDT-1m-{ymd}.zip",
+   "rest_url": "https://fapi.binance.com/fapi/v1/indexPriceKlines",
+   "rest_params": {
+    "pair": "BTCUSDT",
+    "interval": "1m"
+   },
+   "cols": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "fields": [
+    "open",
+    "high",
+    "low",
+    "close"
+   ],
+   "known_gaps": [
+    [
+     "2020-01-19T13:09:00Z",
+     "2020-01-19T13:37:00Z"
+    ],
+    [
+     "2020-12-17T07:32:00Z",
+     "2020-12-17T07:55:00Z"
+    ],
+    [
+     "2022-07-12T13:17:00Z",
+     "2022-07-12T13:21:00Z"
+    ],
+    [
+     "2024-08-12T10:02:00Z",
+     "2024-08-12T10:03:00Z"
+    ]
+   ],
+   "description": "Binance USD-M BTCUSDT index price, 1-minute klines (indexPriceKlines).",
+   "fields_used": {
+    "open_time": "kline open time, ms since epoch (UTC)",
+    "close": "index price at the end of the minute (used: P(t))",
+    "open/high/low": "stored but unused"
+   },
+   "frequency": "1m",
+   "earliest_available": "2020-01-01T00:00:00Z",
+   "public_at": "A kline with open time t is complete and public at t + 60 s. generate_signals.py uses, for signal time T, only klines with open time <= T - 60 s.",
+   "known_gaps_note": "The first three gaps are the ones listed in the task. 2024-08-12 10:02-10:03 was missing from both the monthly and the daily archive during research; REST (fapi.binance.com) answered HTTP 451 from the research machine, so it could not be confirmed there. With REST reachable the REST layer is tried first."
+  },
+  {
+   "name": "fut_1m",
+   "kind": "kline",
+   "earliest": "2020-01-01T00:00:00Z",
+   "monthly_url": "https://data.binance.vision/data/futures/um/monthly/klines/BTCUSDT/1m/BTCUSDT-1m-{ym}.zip",
+   "daily_url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1m/BTCUSDT-1m-{ymd}.zip",
+   "rest_url": "https://fapi.binance.com/fapi/v1/klines",
+   "rest_params": {
+    "symbol": "BTCUSDT",
+    "interval": "1m"
+   },
+   "cols": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    8,
+    9
+   ],
+   "fields": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "count",
+    "taker_buy_volume"
+   ],
+   "description": "Binance USD-M BTCUSDT perpetual, 1-minute trade klines.",
+   "fields_used": {
+    "close": "last trade price",
+    "volume": "base volume (BTC)",
+    "taker_buy_volume": "taker-buy base volume (BTC)",
+    "count": "number of trades"
+   },
+   "frequency": "1m",
+   "earliest_available": "2020-01-01T00:00:00Z",
+   "public_at": "A kline with open time t is complete and public at t + 60 s. generate_signals.py uses, for signal time T, only klines with open time <= T - 60 s."
+  },
+  {
+   "name": "prem_1m",
+   "kind": "kline",
+   "earliest": "2020-01-01T00:00:00Z",
+   "monthly_url": "https://data.binance.vision/data/futures/um/monthly/premiumIndexKlines/BTCUSDT/1m/BTCUSDT-1m-{ym}.zip",
+   "daily_url": "https://data.binance.vision/data/futures/um/daily/premiumIndexKlines/BTCUSDT/1m/BTCUSDT-1m-{ymd}.zip",
+   "rest_url": "https://fapi.binance.com/fapi/v1/premiumIndexKlines",
+   "rest_params": {
+    "symbol": "BTCUSDT",
+    "interval": "1m"
+   },
+   "cols": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "fields": [
+    "open",
+    "high",
+    "low",
+    "close"
+   ],
+   "description": "Binance USD-M BTCUSDT premium index, 1-minute klines (premiumIndexKlines).",
+   "fields_used": {
+    "close": "premium index at the end of the minute"
+   },
+   "frequency": "1m",
+   "earliest_available": "2020-01-01T00:00:00Z",
+   "public_at": "A kline with open time t is complete and public at t + 60 s. generate_signals.py uses, for signal time T, only klines with open time <= T - 60 s.",
+   "known_gaps": [
+    [
+     "2020-01-19T13:09:00Z",
+     "2020-01-19T13:37:00Z"
+    ],
+    [
+     "2020-12-01T22:40:00Z",
+     "2020-12-02T00:01:00Z"
+    ],
+    [
+     "2020-12-17T07:32:00Z",
+     "2020-12-17T07:55:00Z"
+    ],
+    [
+     "2022-07-12T12:57:00Z",
+     "2022-07-12T12:57:00Z"
+    ],
+    [
+     "2022-07-12T13:14:00Z",
+     "2022-07-12T13:21:00Z"
+    ],
+    [
+     "2022-07-12T13:52:00Z",
+     "2022-07-12T14:31:00Z"
+    ],
+    [
+     "2022-07-13T06:59:00Z",
+     "2022-07-13T06:59:00Z"
+    ],
+    [
+     "2023-11-10T03:38:00Z",
+     "2023-11-10T03:41:00Z"
+    ],
+    [
+     "2023-11-10T03:59:00Z",
+     "2023-11-10T04:08:00Z"
+    ],
+    [
+     "2024-08-12T10:02:00Z",
+     "2024-08-12T10:03:00Z"
+    ]
+   ],
+   "known_gaps_note": "Minutes missing from both the monthly and the daily archive during research (2020-01..2025-12). REST answered HTTP 451 from the research machine, so they could not be confirmed there; with REST reachable the REST layer is tried first."
+  }
+ ]
+}

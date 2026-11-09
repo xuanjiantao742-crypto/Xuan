@@ -1,0 +1,161 @@
+{
+ "conclusion": "有候选，但封存段没有达标",
+ "n_trials": 483,
+ "n_candidates": 11,
+ "research_data_max_ts": "2025-12-31T23:59:00Z",
+ "segments": {
+  "dev": {
+   "n": 136464,
+   "n_clusters": 39528,
+   "wins": 78655,
+   "win_rate": 0.5763791183022628,
+   "wilson_low": 0.5715006991455792,
+   "wilson_high": 0.5812426933622947,
+   "clusters_per_month": 658.5295566502463,
+   "min_month_clusters": 0,
+   "signals_per_month": 2273.4663382594417,
+   "units_per_month": 150.73393028188286,
+   "max_losing_streak": 30,
+   "max_drawdown_units": 141.99999999819556,
+   "delay": {
+    "n": 136464,
+    "win_rate": 0.5624120647203658,
+    "units_per_month": 91.98972188013134
+   },
+   "payout_080": {
+    "units_per_month": 85.21500410509029
+   }
+  },
+  "val": {
+   "n": 29749,
+   "n_clusters": 8439,
+   "wins": 16435,
+   "win_rate": 0.5524555447241924,
+   "wilson_low": 0.5418251889937544,
+   "wilson_high": 0.563038166331952,
+   "clusters_per_month": 703.7316780821918,
+   "min_month_clusters": 649,
+   "signals_per_month": 2480.7813356164384,
+   "units_per_month": 54.683261986301346,
+   "max_losing_streak": 33,
+   "max_drawdown_units": 133.09999999998695,
+   "delay": {
+    "n": 29749,
+    "win_rate": 0.5401526101717705,
+    "units_per_month": -1.7803852739726214
+   },
+   "payout_080": {
+    "units_per_month": -13.842808219178123
+   }
+  },
+  "holdout": {
+   "n": 19151,
+   "n_clusters": 5314,
+   "wins": 10612,
+   "win_rate": 0.5541225001305415,
+   "wilson_low": 0.5407238197417187,
+   "wilson_high": 0.5674429873813649,
+   "clusters_per_month": 682.4678270042194,
+   "min_month_clusters": 635,
+   "signals_per_month": 2459.5297995780593,
+   "units_per_month": 61.7996835443038,
+   "max_losing_streak": 27,
+   "max_drawdown_units": 221.1499999999886,
+   "delay": {
+    "n": 19151,
+    "win_rate": 0.5467599603153882,
+    "units_per_month": 28.299169303797463
+   },
+   "payout_080": {
+    "units_per_month": -6.3443565400844
+   }
+  }
+ },
+ "by_year": {
+  "2020": {
+   "n": 25967,
+   "win_rate": 0.5952170062001771,
+   "units": 2626.5999999999995
+  },
+  "2021": {
+   "n": 27611,
+   "win_rate": 0.5749520118793234,
+   "units": 1757.75
+  },
+  "2022": {
+   "n": 27289,
+   "win_rate": 0.5715123309758511,
+   "units": 1563.5999999999997
+  },
+  "2023": {
+   "n": 27799,
+   "win_rate": 0.5835461707255657,
+   "units": 2211.7
+  },
+  "2024": {
+   "n": 27798,
+   "win_rate": 0.5578099143823296,
+   "units": 888.0999999999998
+  },
+  "2025": {
+   "n": 29749,
+   "win_rate": 0.5524555447241924,
+   "units": 655.7499999999997
+  },
+  "2026": {
+   "n": 19151,
+   "win_rate": 0.5541225001305415,
+   "units": 481.2
+  }
+ },
+ "val_p_bonferroni": 0.009124626917932293,
+ "truncation_ok": true,
+ "shuffle_win_rate": 0.49978200947931023,
+ "extra": {
+  "frozen_trial_id": null,
+  "val_p_raw": 1.889156711787224e-05,
+  "dropped_signals": {
+   "dev": 1,
+   "val": 0,
+   "holdout": 0
+  },
+  "delay_dropped": {
+   "dev": 1,
+   "val": 0,
+   "holdout": 0
+  },
+  "raw_signals_before_cap": {
+   "dev": 254348,
+   "val": 59334,
+   "holdout": 39115
+  },
+  "shuffle": {
+   "dev": {
+    "reps": 200,
+    "mean_win_rate": 0.5000416226990269,
+    "sd_win_rate": 0.0012846927459396848,
+    "actual_win_rate": 0.5763791183022628,
+    "n": 136464
+   },
+   "val": {
+    "reps": 200,
+    "mean_win_rate": 0.49978200947931023,
+    "sd_win_rate": 0.003116811644425435,
+    "actual_win_rate": 0.5524555447241924,
+    "n": 29749
+   }
+  },
+  "start_invariance": {
+   "rows_new_dir": 19276,
+   "rows_signals_val": 19276,
+   "identical": true
+  },
+  "n_truncation_points": 24,
+  "shuffle_note": "shuffle_win_rate = mean over 200 shuffles in the validation segment; per-segment values in extra.shuffle",
+  "shuffle_holdout": {
+   "reps": 200,
+   "mean_win_rate": 0.49979217795415387,
+   "sd_win_rate": 0.003657089237119442
+  }
+ }
+}

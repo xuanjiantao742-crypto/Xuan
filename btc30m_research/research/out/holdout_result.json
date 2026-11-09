@@ -1,0 +1,60 @@
+{
+ "scored_at_utc": "2026-11-09T04:52:43Z",
+ "result": {
+  "n": 19151,
+  "n_raw_signals": 39115,
+  "n_accepted": 19151,
+  "dropped": 0,
+  "n_clusters": 5314,
+  "wins": 10612,
+  "win_rate": 0.5541225001305415,
+  "wilson_low": 0.5407238197417187,
+  "wilson_high": 0.5674429873813649,
+  "clusters_per_month": 682.4678270042194,
+  "min_month_clusters": 635,
+  "signals_per_month": 2459.5297995780593,
+  "units_per_month": 61.7996835443038,
+  "units": 481.2,
+  "max_losing_streak": 27,
+  "max_drawdown_units": 221.1499999999886,
+  "delay": {
+   "n": 19151,
+   "dropped": 0,
+   "win_rate": 0.5467599603153882,
+   "units_per_month": 28.299169303797463
+  },
+  "payout_080": {
+   "units_per_month": -6.3443565400844
+  },
+  "by_year": {
+   "2026": {
+    "n": 19151,
+    "win_rate": 0.5541225001305415,
+    "units": 481.2
+   }
+  }
+ },
+ "shuffle": {
+  "reps": 200,
+  "mean_win_rate": 0.49979217795415387,
+  "sd_win_rate": 0.003657089237119442
+ },
+ "criteria": {
+  "1_winrate_ge_57_and_wilson_low_gt_breakeven": false,
+  "2_clusters_per_month_ge_150_and_min_full_month_ge_50": true,
+  "3_units_per_month_ge_12": true,
+  "4_dev_val_holdout_profitable_and_2020_2025_no_losing_year": true,
+  "5_delay_winrate_gt_breakeven": true
+ },
+ "passed_all": false,
+ "dev_units": 9047.75,
+ "val_units": 655.7499999999997,
+ "by_year_2020_2025_units": {
+  "2020": 2626.5999999999995,
+  "2021": 1757.75,
+  "2022": 1563.5999999999997,
+  "2023": 2211.7,
+  "2024": 888.0999999999998,
+  "2025": 655.7499999999997
+ }
+}

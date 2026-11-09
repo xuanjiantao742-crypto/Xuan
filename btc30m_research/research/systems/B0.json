@@ -1,0 +1,1 @@
+{"trial_id": 1, "description": "B0 baseline: direction = sign(P(T-1) - P(T-31)) every minute (30-minute momentum)", "rule": {"family": "C1", "L": 30, "k": 0.0, "d": 1}}

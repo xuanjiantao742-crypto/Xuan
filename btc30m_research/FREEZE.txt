@@ -1,0 +1,44 @@
+FREEZE.txt -- BTCUSDT 30-minute event contract direction system
+
+== 5c frozen at 2026-11-09T04:49:17Z (UTC) ==
+selected system: trial 375 (C7 logistic, alpha=1e-4, 16 features, f=0.05; model fit on dev 2020-01-01..2024-12-31)
+selection (PREREG section 5): candidates from research/candidates.json; candidates with val win_rate > 1/1.85 and val clusters/month >= 150: [371, 375]; highest val units/month -> 375; holdout must be run: True
+val (selection) : n=29749 clusters=8439 win_rate=0.552456 clusters/month=703.73 units/month=54.6833 delay_win_rate=0.540153
+
+SHA256 of frozen/ (frozen/ must not change after this point):
+  865d628ca0d4bcae2e76b17a96f2e96f9eafce9427e206033f734b258b38150b  frozen/data_manifest.json
+  989a495c2614152387cbf9f917a86959890bbd11eca6867dc01079b2d58c740a  frozen/fetch_data.py
+  7fb7bec350fa8d2d278c04060831f377eef3cc9d1b5b9f9004b73975b61bc09a  frozen/generate_signals.py
+  0053641d1c7577a1d23a85876a26ca9341e0cec4491c99e72b075acf58885b36  frozen/requirements.txt
+  f4f01859e465c0cba0235bb678514366501ddbae4e292d8beee022eecad0876f  frozen/system.json
+
+5b (done before freezing, data < 2026-01-01 only):
+  signals_dev.csv  rows=254348 sha256=08c312a839c21d9cdddaaab60096befc259263c5123a10c64c7c2b42cd76496a  (cd frozen; python generate_signals.py --data-dir ../data/frozen_dev --start 2020-01-01T00:00:00Z --end 2025-01-01T00:00:00Z)
+  signals_val.csv  rows=59334 sha256=51c54d6609aef06a73455be8f61f555cb178b6b61bec678eb1562d138d8b1575  (cd frozen; python generate_signals.py --data-dir ../data/frozen_val --start 2025-01-01T00:00:00Z --end 2026-01-01T00:00:00Z)
+  frozen output == research rule output row by row (dev and val): yes
+  truncation invariance: 24 random signal times (12 dev + 12 val), all identical: True
+  new directory --start 2025-03-01T00:00:00Z --end 2025-07-01T00:00:00Z: 19276 rows, identical to signals_val.csv: True
+  extra: --start 2020-02-15 vs signals_dev.csv: identical: True
+  note: before this freeze frozen/generate_signals.py was changed once (grid never starts before the first full day of data in DIR) so that
+        early-2020 dev signals equal the research definition; val signals were identical before and after the change.
+
+== 5d holdout data download + signal generation ==
+2026-11-09T04:50:28Z  cd frozen; python fetch_data.py --start 2026-01-01T00:00:00Z --end 2026-08-26T00:00:00Z --data-dir ../data/holdout
+                      exit 0, no gaps in any source (2026-06 index monthly zip lacked one day -> filled from the daily zip;
+                      2026-08 taken only from daily zips 08-01..08-25; no monthly zip for 2026-08 was requested). No errors, nothing fixed.
+2026-11-09T04:51:52Z  frozen/ SHA256 re-verified: all 5 files OK (unchanged).
+                      cd frozen; python generate_signals.py --data-dir ../data/holdout --start 2026-01-01T00:00:00Z --end 2026-08-25T23:30:00Z --out ../signals_holdout.csv
+                      exit 0; format check only: header OK, strictly increasing whole minutes, rows=39115,
+                      first=2026-01-01T01:05:00Z last=2026-08-25T22:17:00Z (Higher 21106 / Lower 18009)
+                      sha256(signals_holdout.csv)=dc2e7ee1e48918d02f2944318fbfc8a6f32d89a86925e810f9d7f87011709073
+
+(5d note, added 2026-11-09T04:53Z: in 2026-06 the monthly zips of index_1m AND prem_1m each lacked one day, both filled from daily zips; fut_1m monthly was complete.)
+
+== 5e holdout scored ONCE at 2026-11-09T04:52:43Z ==
+holdout (T in [2026-01-01, 2026-08-25T23:30)): accepted+scored n=19151 dropped=0 clusters=5314 wins=10612
+win_rate=0.554123 wilson95(n=clusters)=[0.540724, 0.567443] clusters/month=682.47 min_full_month_clusters=635
+signals/month=2459.53 units/month=61.7997 units=481.20 max_losing_streak=27 max_drawdown_units=221.15
+delay: n=19151 win_rate=0.546760 units/month=28.2992 ; payout 0.80 units/month=-6.3444 ; shuffle mean win_rate=0.499792
+criteria: {"1_winrate_ge_57_and_wilson_low_gt_breakeven": false, "2_clusters_per_month_ge_150_and_min_full_month_ge_50": true, "3_units_per_month_ge_12": true, "4_dev_val_holdout_profitable_and_2020_2025_no_losing_year": true, "5_delay_winrate_gt_breakeven": true}
+passed_all=False
+(correction: the "5d note" line above was appended immediately before the 5e run, i.e. at about 2026-11-09T04:52:40Z, not 04:53Z.)

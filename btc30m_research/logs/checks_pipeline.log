@@ -1,0 +1,28 @@
+truncation dev 2021-07-24T07:15:00Z compared 820976 OK
+truncation dev 2021-08-20T06:23:00Z compared 859804 OK
+truncation dev 2021-12-05T21:57:00Z compared 1014818 OK
+truncation dev 2022-02-11T18:05:00Z compared 1112506 OK
+truncation dev 2022-06-04T00:41:00Z compared 1274182 OK
+truncation dev 2022-10-10T07:54:00Z compared 1458925 OK
+truncation dev 2023-08-01T02:04:00Z compared 1883375 OK
+truncation dev 2023-08-13T06:18:00Z compared 1900909 OK
+truncation dev 2023-10-22T14:33:00Z compared 2002204 OK
+truncation dev 2023-12-22T22:18:00Z compared 2090509 OK
+truncation dev 2023-12-24T12:09:00Z compared 2092780 OK
+truncation dev 2024-12-21T17:29:00Z compared 2615815 OK
+truncation val 2025-01-22T23:31:00Z compared 31652 OK
+truncation val 2025-05-16T10:20:00Z compared 195021 OK
+truncation val 2025-05-27T16:34:00Z compared 211235 OK
+truncation val 2025-06-26T02:19:00Z compared 253580 OK
+truncation val 2025-06-27T11:18:00Z compared 255559 OK
+truncation val 2025-08-02T15:08:00Z compared 307629 OK
+truncation val 2025-09-09T11:39:00Z compared 362139 OK
+truncation val 2025-09-09T21:18:00Z compared 362718 OK
+truncation val 2025-09-15T21:54:00Z compared 371394 OK
+truncation val 2025-09-29T10:21:00Z compared 390861 OK
+truncation val 2025-11-01T12:23:00Z compared 438503 OK
+truncation val 2025-11-18T11:50:00Z compared 462950 OK
+start-invariance 2025-03-01..2025-07-01: 175680 rows vs 175680 OK
+shuffle dev {'reps': 200, 'mean_win_rate': 0.5000308365321673, 'sd_win_rate': 0.0007741901966290044, 'actual_win_rate': 0.4739611487064394, 'n': 438441}
+shuffle val {'reps': 200, 'mean_win_rate': 0.49970649344718937, 'sd_win_rate': 0.001620842045599323, 'actual_win_rate': 0.48528471619708663, 'n': 87596}
+checks written to research/out/checks_pipeline.json truncation_ok = True

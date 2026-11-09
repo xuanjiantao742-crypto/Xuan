@@ -1,0 +1,177 @@
+{
+ "truncation": [
+  {
+   "segment": "dev",
+   "T": "2021-08-30T23:02:00Z",
+   "n_signals_compared": 79376,
+   "identical": true
+  },
+  {
+   "segment": "dev",
+   "T": "2021-09-29T12:37:00Z",
+   "n_signals_compared": 83133,
+   "identical": true
+  },
+  {
+   "segment": "dev",
+   "T": "2022-01-21T02:16:00Z",
+   "n_signals_compared": 98120,
+   "identical": true
+  },
+  {
+   "segment": "dev",
+   "T": "2022-03-27T20:41:00Z",
+   "n_signals_compared": 107565,
+   "identical": true
+  },
+  {
+   "segment": "dev",
+   "T": "2022-07-18T13:11:00Z",
+   "n_signals_compared": 123195,
+   "identical": true
+  },
+  {
+   "segment": "dev",
+   "T": "2022-11-27T23:10:00Z",
+   "n_signals_compared": 141060,
+   "identical": true
+  },
+  {
+   "segment": "dev",
+   "T": "2023-09-05T14:18:00Z",
+   "n_signals_compared": 182096,
+   "identical": true
+  },
+  {
+   "segment": "dev",
+   "T": "2023-09-16T17:45:00Z",
+   "n_signals_compared": 183788,
+   "identical": true
+  },
+  {
+   "segment": "dev",
+   "T": "2023-11-20T17:59:00Z",
+   "n_signals_compared": 193584,
+   "identical": true
+  },
+  {
+   "segment": "dev",
+   "T": "2024-01-17T07:05:00Z",
+   "n_signals_compared": 202128,
+   "identical": true
+  },
+  {
+   "segment": "dev",
+   "T": "2024-01-18T20:18:00Z",
+   "n_signals_compared": 202346,
+   "identical": true
+  },
+  {
+   "segment": "dev",
+   "T": "2024-12-22T04:52:00Z",
+   "n_signals_compared": 252913,
+   "identical": true
+  },
+  {
+   "segment": "val",
+   "T": "2025-01-25T23:03:00Z",
+   "n_signals_compared": 3573,
+   "identical": true
+  },
+  {
+   "segment": "val",
+   "T": "2025-05-26T00:54:00Z",
+   "n_signals_compared": 22015,
+   "identical": true
+  },
+  {
+   "segment": "val",
+   "T": "2025-06-07T03:45:00Z",
+   "n_signals_compared": 23843,
+   "identical": true
+  },
+  {
+   "segment": "val",
+   "T": "2025-07-03T05:59:00Z",
+   "n_signals_compared": 28622,
+   "identical": true
+  },
+  {
+   "segment": "val",
+   "T": "2025-07-04T13:48:00Z",
+   "n_signals_compared": 28850,
+   "identical": true
+  },
+  {
+   "segment": "val",
+   "T": "2025-08-06T13:11:00Z",
+   "n_signals_compared": 34728,
+   "identical": true
+  },
+  {
+   "segment": "val",
+   "T": "2025-09-09T01:23:00Z",
+   "n_signals_compared": 40877,
+   "identical": true
+  },
+  {
+   "segment": "val",
+   "T": "2025-09-09T06:56:00Z",
+   "n_signals_compared": 40942,
+   "identical": true
+  },
+  {
+   "segment": "val",
+   "T": "2025-09-14T19:48:00Z",
+   "n_signals_compared": 41924,
+   "identical": true
+  },
+  {
+   "segment": "val",
+   "T": "2025-09-25T23:39:00Z",
+   "n_signals_compared": 44123,
+   "identical": true
+  },
+  {
+   "segment": "val",
+   "T": "2025-10-29T04:53:00Z",
+   "n_signals_compared": 49499,
+   "identical": true
+  },
+  {
+   "segment": "val",
+   "T": "2025-11-14T12:44:00Z",
+   "n_signals_compared": 52255,
+   "identical": true
+  }
+ ],
+ "truncation_ok": true,
+ "n_truncation_points": 24,
+ "start_invariance": {
+  "rows_new_dir": 19276,
+  "rows_signals_val": 19276,
+  "identical": true
+ },
+ "start_invariance_early_2020": {
+  "rows_new_start": 13222,
+  "rows_signals_dev": 13222,
+  "identical": true
+ },
+ "shuffle": {
+  "dev": {
+   "reps": 200,
+   "mean_win_rate": 0.5000416226990269,
+   "sd_win_rate": 0.0012846927459396848,
+   "actual_win_rate": 0.5763791183022628,
+   "n": 136464
+  },
+  "val": {
+   "reps": 200,
+   "mean_win_rate": 0.49978200947931023,
+   "sd_win_rate": 0.003116811644425435,
+   "actual_win_rate": 0.5524555447241924,
+   "n": 29749
+  }
+ },
+ "seed": 20261109
+}

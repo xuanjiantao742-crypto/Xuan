@@ -1,0 +1,7 @@
+{
+ "n_fit_frozen": 2543366,
+ "n_fit_no_leak": 2543337,
+ "max_abs_param_diff": 4.6856478160633985e-05,
+ "val_minutes_with_different_signal": 20,
+ "val_signals_frozen": 59334
+}
