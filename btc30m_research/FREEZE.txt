@@ -21,3 +21,24 @@ SHA256 of frozen/ (frozen/ must not change after this point):
   extra: --start 2020-02-15 vs signals_dev.csv: identical: True
   note: before this freeze frozen/generate_signals.py was changed once (grid never starts before the first full day of data in DIR) so that
         early-2020 dev signals equal the research definition; val signals were identical before and after the change.
+
+== 5d holdout data download + signal generation ==
+2026-11-09T04:50:28Z  cd frozen; python fetch_data.py --start 2026-01-01T00:00:00Z --end 2026-08-26T00:00:00Z --data-dir ../data/holdout
+                      exit 0, no gaps in any source (2026-06 index monthly zip lacked one day -> filled from the daily zip;
+                      2026-08 taken only from daily zips 08-01..08-25; no monthly zip for 2026-08 was requested). No errors, nothing fixed.
+2026-11-09T04:51:52Z  frozen/ SHA256 re-verified: all 5 files OK (unchanged).
+                      cd frozen; python generate_signals.py --data-dir ../data/holdout --start 2026-01-01T00:00:00Z --end 2026-08-25T23:30:00Z --out ../signals_holdout.csv
+                      exit 0; format check only: header OK, strictly increasing whole minutes, rows=39115,
+                      first=2026-01-01T01:05:00Z last=2026-08-25T22:17:00Z (Higher 21106 / Lower 18009)
+                      sha256(signals_holdout.csv)=dc2e7ee1e48918d02f2944318fbfc8a6f32d89a86925e810f9d7f87011709073
+
+(5d note, added 2026-11-09T04:53Z: in 2026-06 the monthly zips of index_1m AND prem_1m each lacked one day, both filled from daily zips; fut_1m monthly was complete.)
+
+== 5e holdout scored ONCE at 2026-11-09T04:52:43Z ==
+holdout (T in [2026-01-01, 2026-08-25T23:30)): accepted+scored n=19151 dropped=0 clusters=5314 wins=10612
+win_rate=0.554123 wilson95(n=clusters)=[0.540724, 0.567443] clusters/month=682.47 min_full_month_clusters=635
+signals/month=2459.53 units/month=61.7997 units=481.20 max_losing_streak=27 max_drawdown_units=221.15
+delay: n=19151 win_rate=0.546760 units/month=28.2992 ; payout 0.80 units/month=-6.3444 ; shuffle mean win_rate=0.499792
+criteria: {"1_winrate_ge_57_and_wilson_low_gt_breakeven": false, "2_clusters_per_month_ge_150_and_min_full_month_ge_50": true, "3_units_per_month_ge_12": true, "4_dev_val_holdout_profitable_and_2020_2025_no_losing_year": true, "5_delay_winrate_gt_breakeven": true}
+passed_all=False
+(correction: the "5d note" line above was appended immediately before the 5e run, i.e. at about 2026-11-09T04:52:40Z, not 04:53Z.)

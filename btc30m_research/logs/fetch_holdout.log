@@ -1,0 +1,37 @@
+source index_1m: [2025-10-30T00:00:00Z, 2026-08-26T00:00:00Z)
+  index_1m 2025-10: monthly=2880 daily=0
+  index_1m 2025-11: monthly=43200 daily=0
+  index_1m 2025-12: monthly=44640 daily=0
+  index_1m 2026-01: monthly=44640 daily=0
+  index_1m 2026-02: monthly=40320 daily=0
+  index_1m 2026-03: monthly=44640 daily=0
+  index_1m 2026-04: monthly=43200 daily=0
+  index_1m 2026-05: monthly=44640 daily=0
+  index_1m 2026-06: monthly=41760 daily=1440
+  index_1m 2026-07: monthly=44640 daily=0
+  index_1m 2026-08: monthly=0 daily=36000
+source fut_1m: [2025-10-30T00:00:00Z, 2026-08-26T00:00:00Z)
+  fut_1m 2025-10: monthly=2880 daily=0
+  fut_1m 2025-11: monthly=43200 daily=0
+  fut_1m 2025-12: monthly=44640 daily=0
+  fut_1m 2026-01: monthly=44640 daily=0
+  fut_1m 2026-02: monthly=40320 daily=0
+  fut_1m 2026-03: monthly=44640 daily=0
+  fut_1m 2026-04: monthly=43200 daily=0
+  fut_1m 2026-05: monthly=44640 daily=0
+  fut_1m 2026-06: monthly=43200 daily=0
+  fut_1m 2026-07: monthly=44640 daily=0
+  fut_1m 2026-08: monthly=0 daily=36000
+source prem_1m: [2025-10-30T00:00:00Z, 2026-08-26T00:00:00Z)
+  prem_1m 2025-10: monthly=2880 daily=0
+  prem_1m 2025-11: monthly=43200 daily=0
+  prem_1m 2025-12: monthly=44640 daily=0
+  prem_1m 2026-01: monthly=44640 daily=0
+  prem_1m 2026-02: monthly=40320 daily=0
+  prem_1m 2026-03: monthly=44640 daily=0
+  prem_1m 2026-04: monthly=43200 daily=0
+  prem_1m 2026-05: monthly=44640 daily=0
+  prem_1m 2026-06: monthly=41760 daily=1440
+  prem_1m 2026-07: monthly=44640 daily=0
+  prem_1m 2026-08: monthly=0 daily=36000
+fetch_data.py: OK
