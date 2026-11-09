@@ -1,0 +1,130 @@
+{
+ "conclusion": "任务受阻，没能完成（流程测试草稿：只含基线 B0，搜索尚未开始）",
+ "n_trials": 1,
+ "n_candidates": 1,
+ "research_data_max_ts": "2025-12-31T23:59:00Z",
+ "segments": {
+  "dev": {
+   "n": 438441,
+   "n_clusters": 105956,
+   "wins": 207804,
+   "win_rate": 0.4739611487064394,
+   "wilson_low": 0.470955616694182,
+   "wilson_high": 0.4769685687391697,
+   "clusters_per_month": 1765.208401751505,
+   "min_month_clusters": 1613,
+   "signals_per_month": 7304.35026683087,
+   "units_per_month": -899.6905172413793,
+   "max_losing_streak": 60,
+   "max_drawdown_units": 54009.300000210096,
+   "delay": {
+    "n": 438440,
+    "win_rate": 0.47451418666180095,
+    "units_per_month": -892.2152538314176
+   },
+   "payout_080": {
+    "units_per_month": -1072.7894293924467
+   }
+  },
+  "val": {
+   "n": 87596,
+   "n_clusters": 21044,
+   "wins": 42509,
+   "win_rate": 0.48528471619708663,
+   "wilson_low": 0.4785354990825753,
+   "wilson_high": 0.4920393047086484,
+   "clusters_per_month": 1754.8678082191782,
+   "min_month_clusters": 1641,
+   "signals_per_month": 7304.666438356165,
+   "units_per_month": -746.7069263698631,
+   "max_losing_streak": 40,
+   "max_drawdown_units": 8994.599999992915,
+   "delay": {
+    "n": 87595,
+    "win_rate": 0.4851989268793881,
+    "units_per_month": -747.8577140410961
+   },
+   "payout_080": {
+    "units_per_month": -923.9490753424659
+   }
+  },
+  "holdout": null
+ },
+ "by_year": {
+  "2020": {
+   "n": 87807,
+   "win_rate": 0.4602252667782751,
+   "units": -13046.650000000001
+  },
+  "2021": {
+   "n": 87596,
+   "win_rate": 0.4793940362573634,
+   "units": -9908.95
+  },
+  "2022": {
+   "n": 87600,
+   "win_rate": 0.4795890410958904,
+   "units": -9877.8
+  },
+  "2023": {
+   "n": 87600,
+   "win_rate": 0.4655365296803653,
+   "units": -12155.15
+  },
+  "2024": {
+   "n": 87838,
+   "win_rate": 0.48506341219062366,
+   "units": -9015.05
+  },
+  "2025": {
+   "n": 87596,
+   "win_rate": 0.48528471619708663,
+   "units": -8954.35
+  }
+ },
+ "val_p_bonferroni": 0.9999999999069965,
+ "truncation_ok": true,
+ "shuffle_win_rate": 0.49970649344718937,
+ "extra": {
+  "frozen_trial_id": 1,
+  "val_p_raw": 0.9999999999069965,
+  "dropped_signals": {
+   "dev": 12,
+   "val": 4,
+   "holdout": null
+  },
+  "delay_dropped": {
+   "dev": 13,
+   "val": 5,
+   "holdout": null
+  },
+  "raw_signals_before_cap": {
+   "dev": 2630605,
+   "val": 525599,
+   "holdout": null
+  },
+  "shuffle": {
+   "dev": {
+    "reps": 200,
+    "mean_win_rate": 0.5000308365321673,
+    "sd_win_rate": 0.0007741901966290044,
+    "actual_win_rate": 0.4739611487064394,
+    "n": 438441
+   },
+   "val": {
+    "reps": 200,
+    "mean_win_rate": 0.49970649344718937,
+    "sd_win_rate": 0.001620842045599323,
+    "actual_win_rate": 0.48528471619708663,
+    "n": 87596
+   }
+  },
+  "start_invariance": {
+   "rows_new_dir": 175680,
+   "rows_signals_val": 175680,
+   "identical": true
+  },
+  "n_truncation_points": 24,
+  "shuffle_note": "shuffle_win_rate = mean over 200 shuffles in the validation segment; per-segment values in extra.shuffle"
+ }
+}

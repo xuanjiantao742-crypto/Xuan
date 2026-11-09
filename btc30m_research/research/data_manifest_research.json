@@ -1,0 +1,52 @@
+{
+  "description": "Research download manifest (all sources considered during research). The frozen system uses its own frozen/data_manifest.json.",
+  "warmup_days": 0,
+  "sources": [
+    {
+      "name": "index_1m",
+      "kind": "kline",
+      "earliest": "2020-01-01T00:00:00Z",
+      "monthly_url": "https://data.binance.vision/data/futures/um/monthly/indexPriceKlines/BTCUSDT/1m/BTCUSDT-1m-{ym}.zip",
+      "daily_url": "https://data.binance.vision/data/futures/um/daily/indexPriceKlines/BTCUSDT/1m/BTCUSDT-1m-{ymd}.zip",
+      "rest_url": "https://fapi.binance.com/fapi/v1/indexPriceKlines",
+      "rest_params": {"pair": "BTCUSDT", "interval": "1m"},
+      "cols": [1, 2, 3, 4],
+      "fields": ["open", "high", "low", "close"],
+      "known_gaps": [["2020-01-19T13:09:00Z", "2020-01-19T13:37:00Z"],
+                     ["2020-12-17T07:32:00Z", "2020-12-17T07:55:00Z"],
+                     ["2022-07-12T13:17:00Z", "2022-07-12T13:21:00Z"]]
+    },
+    {
+      "name": "fut_1m",
+      "kind": "kline",
+      "earliest": "2020-01-01T00:00:00Z",
+      "monthly_url": "https://data.binance.vision/data/futures/um/monthly/klines/BTCUSDT/1m/BTCUSDT-1m-{ym}.zip",
+      "daily_url": "https://data.binance.vision/data/futures/um/daily/klines/BTCUSDT/1m/BTCUSDT-1m-{ymd}.zip",
+      "rest_url": "https://fapi.binance.com/fapi/v1/klines",
+      "rest_params": {"symbol": "BTCUSDT", "interval": "1m"},
+      "cols": [1, 2, 3, 4, 5, 8, 9],
+      "fields": ["open", "high", "low", "close", "volume", "count", "taker_buy_volume"]
+    },
+    {
+      "name": "prem_1m",
+      "kind": "kline",
+      "earliest": "2020-01-01T00:00:00Z",
+      "monthly_url": "https://data.binance.vision/data/futures/um/monthly/premiumIndexKlines/BTCUSDT/1m/BTCUSDT-1m-{ym}.zip",
+      "daily_url": "https://data.binance.vision/data/futures/um/daily/premiumIndexKlines/BTCUSDT/1m/BTCUSDT-1m-{ymd}.zip",
+      "rest_url": "https://fapi.binance.com/fapi/v1/premiumIndexKlines",
+      "rest_params": {"symbol": "BTCUSDT", "interval": "1m"},
+      "cols": [1, 2, 3, 4],
+      "fields": ["open", "high", "low", "close"]
+    },
+    {
+      "name": "funding",
+      "kind": "funding",
+      "earliest": "2020-01-01T00:00:00Z",
+      "monthly_url": "https://data.binance.vision/data/futures/um/monthly/fundingRate/BTCUSDT/BTCUSDT-fundingRate-{ym}.zip",
+      "rest_url": "https://fapi.binance.com/fapi/v1/fundingRate",
+      "rest_params": {"symbol": "BTCUSDT"},
+      "default_interval_hours": 8,
+      "fields": ["funding_interval_hours", "last_funding_rate"]
+    }
+  ]
+}

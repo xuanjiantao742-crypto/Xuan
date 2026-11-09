@@ -1,0 +1,287 @@
+{
+ "written_utc": "2026-11-09T04:38:23Z",
+ "n_trials_at_selection": 483,
+ "n_E1": 76,
+ "rule": "PREREG section 5 (top-10 E1 by R, <=3 per category, COMBO own category; + B0)",
+ "candidates": [
+  129,
+  387,
+  401,
+  463,
+  461,
+  456,
+  379,
+  371,
+  375,
+  79,
+  1
+ ],
+ "details": [
+  {
+   "trial_id": 129,
+   "source": "E1",
+   "category": "C2",
+   "params": {
+    "L": 120,
+    "d": -1,
+    "family": "C2a"
+   },
+   "dev_R": 137.575168,
+   "dev_win_rate": 0.57357,
+   "dev_delay_win_rate": 0.576893,
+   "dev_clusters_per_month": 626.992508,
+   "dev_units_per_month": 137.575168,
+   "eval_window": "2020-01-01..2024-12-31"
+  },
+  {
+   "trial_id": 387,
+   "source": "E1",
+   "category": "C2",
+   "params": {
+    "L": 96,
+    "d": -1,
+    "family": "C2a"
+   },
+   "dev_R": 134.201553,
+   "dev_win_rate": 0.568517,
+   "dev_delay_win_rate": 0.571865,
+   "dev_clusters_per_month": 718.804803,
+   "dev_units_per_month": 134.201553,
+   "eval_window": "2020-01-01..2024-12-31"
+  },
+  {
+   "trial_id": 401,
+   "source": "E1",
+   "category": "C2",
+   "params": {
+    "L": 90,
+    "d": -1,
+    "family": "C2a"
+   },
+   "dev_R": 130.349802,
+   "dev_win_rate": 0.566691,
+   "dev_delay_win_rate": 0.569751,
+   "dev_clusters_per_month": 745.810379,
+   "dev_units_per_month": 130.349802,
+   "eval_window": "2020-01-01..2024-12-31"
+  },
+  {
+   "trial_id": 463,
+   "source": "E1",
+   "category": "COMBO",
+   "params": {
+    "a": {
+     "L": 120,
+     "d": -1,
+     "family": "C2a"
+    },
+    "b": {
+     "L": 15,
+     "d": -1,
+     "family": "C4b",
+     "k": 4.0
+    },
+    "bases": [
+     129,
+     255
+    ],
+    "family": "COMBO",
+    "op": "OR"
+   },
+   "dev_R": 127.234414,
+   "dev_win_rate": 0.569931,
+   "dev_delay_win_rate": 0.573659,
+   "dev_clusters_per_month": 688.783799,
+   "dev_units_per_month": 127.234414,
+   "eval_window": "2020-01-01..2024-12-31"
+  },
+  {
+   "trial_id": 461,
+   "source": "E1",
+   "category": "COMBO",
+   "params": {
+    "a": {
+     "L": 120,
+     "d": -1,
+     "family": "C2a"
+    },
+    "b": {
+     "L": 60,
+     "d": -1,
+     "family": "C6a",
+     "k": 1.0,
+     "regime": "low"
+    },
+    "bases": [
+     129,
+     357
+    ],
+    "family": "COMBO",
+    "op": "OR"
+   },
+   "dev_R": 124.409741,
+   "dev_win_rate": 0.567441,
+   "dev_delay_win_rate": 0.570726,
+   "dev_clusters_per_month": 675.206041,
+   "dev_units_per_month": 124.409741,
+   "eval_window": "2020-01-01..2024-12-31"
+  },
+  {
+   "trial_id": 456,
+   "source": "E1",
+   "category": "COMBO",
+   "params": {
+    "a": {
+     "L": 120,
+     "d": -1,
+     "family": "C2a"
+    },
+    "b": {
+     "L": 60,
+     "d": -1,
+     "family": "C1",
+     "k": 1.5
+    },
+    "bases": [
+     129,
+     77
+    ],
+    "family": "COMBO",
+    "op": "AND"
+   },
+   "dev_R": 91.118413,
+   "dev_win_rate": 0.582155,
+   "dev_delay_win_rate": 0.581355,
+   "dev_clusters_per_month": 366.132971,
+   "dev_units_per_month": 92.906012,
+   "eval_window": "2020-01-01..2024-12-31"
+  },
+  {
+   "trial_id": 379,
+   "source": "E1",
+   "category": "C7",
+   "params": {
+    "alpha": 0.01,
+    "f": 0.05,
+    "family": "C7",
+    "features": [
+     "z:1",
+     "z:5",
+     "z:15",
+     "z:60",
+     "z:240",
+     "z:1440",
+     "m:60",
+     "m:1440",
+     "pos:240|0.5",
+     "vratio:60|1"
+    ],
+    "model_file": "research/models/trial_0379_inner.json"
+   },
+   "dev_R": 85.876637,
+   "dev_win_rate": 0.56271,
+   "dev_delay_win_rate": 0.562929,
+   "dev_clusters_per_month": 529.429292,
+   "dev_units_per_month": 85.876637,
+   "eval_window": "2023-01-01..2024-12-31 (fit 2020-01-01..2022-12-31)"
+  },
+  {
+   "trial_id": 371,
+   "source": "E1",
+   "category": "C7",
+   "params": {
+    "alpha": 0.0001,
+    "f": 0.05,
+    "family": "C7",
+    "features": [
+     "z:1",
+     "z:5",
+     "z:15",
+     "z:60",
+     "z:240",
+     "z:1440",
+     "m:60",
+     "m:1440",
+     "pos:240|0.5",
+     "vratio:60|1"
+    ],
+    "model_file": "research/models/trial_0371_inner.json"
+   },
+   "dev_R": 84.615001,
+   "dev_win_rate": 0.562147,
+   "dev_delay_win_rate": 0.5626,
+   "dev_clusters_per_month": 529.637483,
+   "dev_units_per_month": 84.615001,
+   "eval_window": "2023-01-01..2024-12-31 (fit 2020-01-01..2022-12-31)"
+  },
+  {
+   "trial_id": 375,
+   "source": "E1",
+   "category": "C7",
+   "params": {
+    "alpha": 0.0001,
+    "f": 0.05,
+    "family": "C7",
+    "features": [
+     "z:1",
+     "z:5",
+     "z:15",
+     "z:60",
+     "z:240",
+     "z:1440",
+     "m:60",
+     "m:1440",
+     "pos:240|0.5",
+     "vratio:60|1",
+     "hday:60",
+     "zb:15",
+     "zp:240",
+     "fund",
+     "imb:5",
+     "imb:30"
+    ],
+    "model_file": "research/models/trial_0375_inner.json"
+   },
+   "dev_R": 81.775278,
+   "dev_win_rate": 0.568176,
+   "dev_delay_win_rate": 0.558617,
+   "dev_clusters_per_month": 677.869357,
+   "dev_units_per_month": 125.024842,
+   "eval_window": "2023-01-01..2024-12-31 (fit 2020-01-01..2022-12-31)"
+  },
+  {
+   "trial_id": 79,
+   "source": "E1",
+   "category": "C1",
+   "params": {
+    "L": 60,
+    "d": -1,
+    "family": "C1",
+    "k": 2.0
+   },
+   "dev_R": 30.908973,
+   "dev_win_rate": 0.552686,
+   "dev_delay_win_rate": 0.550595,
+   "dev_clusters_per_month": 400.368911,
+   "dev_units_per_month": 37.336333,
+   "eval_window": "2020-01-01..2024-12-31"
+  },
+  {
+   "trial_id": 1,
+   "source": "B0 (pre-registered)",
+   "category": "C1",
+   "params": {
+    "L": 30,
+    "d": 1,
+    "family": "C1",
+    "k": 0.0
+   },
+   "dev_R": -899.690517,
+   "dev_win_rate": 0.473961,
+   "dev_delay_win_rate": 0.474514,
+   "dev_clusters_per_month": 1765.208402,
+   "dev_units_per_month": -899.690517,
+   "eval_window": "2020-01-01..2024-12-31"
+  }
+ ]
+}
